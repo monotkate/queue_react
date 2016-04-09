@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, ButtonInput, Input, Form} from "react-bootstrap";
+import {Button, ButtonInput, Input, Form, ButtonToolbar} from "react-bootstrap";
 
 var App = React.createClass({
 
@@ -20,7 +20,7 @@ var App = React.createClass({
 });
 
 var queueObj;
-var lastObj = '';
+var lastObj;
 
 var Queue = React.createClass({
 
@@ -32,7 +32,7 @@ var Queue = React.createClass({
         if (typeof queueObj === 'undefined') {
             this.initialize();
         }
-        if (typeof elem.elem != 'undefined') {
+        if (typeof elem.elem != 'undefined' && elem.elem != null) {
             queueObj.push(elem.elem);
             this.handleChange(queueObj);
         }
@@ -44,15 +44,15 @@ var Queue = React.createClass({
     //dequeues first element, shifting the rest of the array
     dequeue(event) {
         event.preventDefault();
-        var lastObj;
         let length = queueObj.length;
         if (length > 0) {
             lastObj = queueObj[0];
+            this.setState({lastObj: lastObj});
 
             for(var i = 0; i < length-1; i++) {
                 queueObj[i] = queueObj[i+1];
             };
-            queueObj[length-1] = null;
+            queueObj.splice(length-1, 1);
             this.handleChange(queueObj);
         }
         else {
@@ -111,13 +111,15 @@ var Queue = React.createClass({
         return (
             <div>
                 <AddElem onButtonClicked={this.enqueue} buttonValue="Enqueue"/>
-                <DisplayQueue getQueue={queueObj}/>
                 <ButtonInput
                     type="button"
                     value="Dequeue"
                     bsSize="small"
                     onClick={this.dequeue} />
-                <div>{lastObj}</div>
+                <DisplayQueue getQueue={queueObj}/>
+                <div>
+                    Dequeued: <ButtonInput value={lastObj} />
+                </div>
                 <ButtonInput
                     type="button"
                     value="Reverse"
@@ -184,13 +186,11 @@ var DisplayQueue = React.createClass({
     render() {
         var queueList = this.props.getQueue.map(function(elem){
                         return (
-                            <span>
-                                <ButtonInput value={elem} />
-                            </span>
+                            <Button> {elem} </Button>
                         );
                     });
         return (
-            <span> {queueList} </span>
+            <ButtonToolbar> {queueList} </ButtonToolbar>
         );
     }
 })
