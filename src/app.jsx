@@ -21,6 +21,7 @@ var App = React.createClass({
 
 var queueObj;
 var lastObj;
+var peek;
 
 var Queue = React.createClass({
 
@@ -62,8 +63,8 @@ var Queue = React.createClass({
 
     peek(elem) {
         if (typeof queueObj[elem.elem] != 'undefined') {
-            alert('give:  ' + queueObj[elem.elem]);
-            return queueObj[elem.elem];
+            peek = queueObj[elem.elem];
+            this.setState({peek: peek});
         }
         else {
             alert('element does not exist');
@@ -111,23 +112,22 @@ var Queue = React.createClass({
         return (
             <div>
                 <AddElem onButtonClicked={this.enqueue} buttonValue="Enqueue"/>
-                <ButtonInput
-                    type="button"
-                    value="Dequeue"
-                    bsSize="small"
-                    onClick={this.dequeue} />
-                <DisplayQueue getQueue={queueObj}/>
+                <ButtonToolbar>
+                    <Button bsSize="small" onClick={this.dequeue}>Dequeue</Button>
+                    <Button bsSize="small" onClick={this.reverse}>Reverse</Button>
+                </ButtonToolbar>
+                <div>
+                    Queue: <DisplayQueue getQueue={queueObj}/>
+                </div>
                 <div>
                     Dequeued: <ButtonInput value={lastObj} />
                 </div>
-                <ButtonInput
-                    type="button"
-                    value="Reverse"
-                    bsSize="small"
-                    onClick={this.reverse} />
                 <AddElem
                     onButtonClicked={this.peek}
                     buttonValue="Get Element"/>
+                <div>
+                    Peek: <ButtonInput value={peek} />
+                </div>
             </div>
         );
     }
