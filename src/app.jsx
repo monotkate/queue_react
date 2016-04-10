@@ -142,10 +142,12 @@ var AddElem = React.createClass({
     },
 
     validationState(value) {
-        let length = value.length;
         let style = 'danger';
+        if (typeof value !== 'undefined') {
+            let length = value.length;
 
-        if (length > 0) style = 'success';
+            if (length > 0) style = 'success';
+        }
 
         let disabled = style !== 'success';
 
@@ -159,23 +161,23 @@ var AddElem = React.createClass({
 
     handleSubmit(event) {
         event.preventDefault();
-        //var task = this.state.elem;
         this.props.onButtonClicked({elem: this.state.elem});
         this.setState({elem: ''});
         this.setState({value: ''});
+        this.setState( this.validationState(event.target.value) );
     },
 
     render() {
+        const subButton = <ButtonInput type="submit" value={this.props.buttonValue} bsStyle={this.state.style} bsSize="small" disabled={this.state.disabled}/>;
+
         return (
             <form onSubmit={this.handleSubmit}>
-                <Input type="Add New Element"
-                       ref="input"
-                       value={this.state.elem}
-                       onChange={this.handleChange} />
-                <ButtonInput type="submit"
-                             value={this.props.buttonValue} bsStyle={this.state.style}
-                             bsSize="small"
-                             disabled={this.state.disabled}/>
+                <Input
+                    type="Add New Element"
+                    ref="input"
+                    value={this.state.elem}
+                    onChange={this.handleChange}
+                    buttonBefore={subButton}/>
             </form>
         );
     }
@@ -193,6 +195,6 @@ var DisplayQueue = React.createClass({
             <ButtonToolbar> {queueList} </ButtonToolbar>
         );
     }
-})
+});
 
 export default App;
