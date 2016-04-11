@@ -120,21 +120,19 @@ var Queue = React.createClass({
         }
         return (
             <div style={styles.margin10}>
-                <div style={styles.marginTop10}>
+                <div style={styles.marginTop10, styles.queueHeight}>
                     Queue: <DisplayQueue getQueue={queueObj}/>
                 </div>
                 <AddElem onButtonClicked={this.enqueue} buttonValue="Enqueue"/>
+                <AddElem
+                    onButtonClicked={this.peek}
+                    buttonValue="Get Element"/>
                 <ButtonToolbar style={styles.marginTop10}>
                     <Button bsSize="small" onClick={this.dequeue}>Dequeue</Button>
                     <Button bsSize="small" onClick={this.reverse}>Reverse</Button>
                 </ButtonToolbar>
                 <div style={styles.marginTop10}>
                     { this.state.showLast ? <DispElem dispName="Dequeued" dispValue={lastObj} /> : null }
-                </div>
-                <AddElem
-                    onButtonClicked={this.peek}
-                    buttonValue="Get Element"/>
-                <div style={styles.marginTop10}>
                     { this.state.showPeek ? <DispElem dispName="Peek" dispValue={peek} /> : null }
                 </div>
             </div>
@@ -147,7 +145,7 @@ var DispElem = React.createClass({
         return(
             <div>
                 {this.props.dispName}:
-                <div style={styles.padding10}>
+                <div style={styles.marginLeft}>
                     <Button>{this.props.dispValue}</Button>
                 </div>
             </div>
@@ -210,11 +208,11 @@ var DisplayQueue = React.createClass({
     render() {
         var queueList = this.props.getQueue.map(function(elem){
                         return (
-                            <Button> {elem} </Button>
+                            <Button bsStyle="primary"> {elem} </Button>
                         );
                     });
         return (
-            <ButtonToolbar> {queueList} </ButtonToolbar>
+            <ButtonToolbar style={styles.marginTop10}> {queueList} </ButtonToolbar>
         );
     }
 });

@@ -13,5 +13,8 @@ export default {
         borderBottomLeftRadius: 0,
         height: 34,
         marginLeft: -2
+    },
+    queueHeight: {
+        height: 75
     }
 };
