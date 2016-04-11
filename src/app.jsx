@@ -1,5 +1,6 @@
 import React from 'react';
 import {Button, ButtonInput, Input, Form, ButtonToolbar} from "react-bootstrap";
+import styles from './styles';
 
 var App = React.createClass({
 
@@ -118,22 +119,22 @@ var Queue = React.createClass({
             this.initialize();
         }
         return (
-            <div>
+            <div style={styles.margin10}>
+                <div style={styles.marginTop10}>
+                    Queue: <DisplayQueue getQueue={queueObj}/>
+                </div>
                 <AddElem onButtonClicked={this.enqueue} buttonValue="Enqueue"/>
-                <ButtonToolbar>
+                <ButtonToolbar style={styles.marginTop10}>
                     <Button bsSize="small" onClick={this.dequeue}>Dequeue</Button>
                     <Button bsSize="small" onClick={this.reverse}>Reverse</Button>
                 </ButtonToolbar>
-                <div>
-                    Queue: <DisplayQueue getQueue={queueObj}/>
-                </div>
-                <div>
+                <div style={styles.marginTop10}>
                     { this.state.showLast ? <DispElem dispName="Dequeued" dispValue={lastObj} /> : null }
                 </div>
                 <AddElem
                     onButtonClicked={this.peek}
                     buttonValue="Get Element"/>
-                <div>
+                <div style={styles.marginTop10}>
                     { this.state.showPeek ? <DispElem dispName="Peek" dispValue={peek} /> : null }
                 </div>
             </div>
@@ -146,7 +147,9 @@ var DispElem = React.createClass({
         return(
             <div>
                 {this.props.dispName}:
-                <Button>{this.props.dispValue}</Button>
+                <div style={styles.padding10}>
+                    <Button>{this.props.dispValue}</Button>
+                </div>
             </div>
         );
     }
@@ -187,7 +190,7 @@ var AddElem = React.createClass({
     },
 
     render() {
-        const subButton = <ButtonInput type="submit" value={this.props.buttonValue} bsStyle={this.state.style} bsSize="small" disabled={this.state.disabled}/>;
+        const subButton = <ButtonInput type="submit" style={styles.formButton} value={this.props.buttonValue} bsStyle={this.state.style} bsSize="small" disabled={this.state.disabled}/>;
 
         return (
             <form onSubmit={this.handleSubmit}>
@@ -196,7 +199,7 @@ var AddElem = React.createClass({
                     ref="input"
                     value={this.state.elem}
                     onChange={this.handleChange}
-                    buttonBefore={subButton}/>
+                    buttonAfter={subButton}/>
             </form>
         );
     }
