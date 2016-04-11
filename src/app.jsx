@@ -24,6 +24,12 @@ var lastObj;
 var peek;
 
 var Queue = React.createClass({
+    getInitialState: function() {
+        return {
+            showLast: false,
+            showPeek: false
+        }
+    },
 
     initialize() {
         queueObj = [];
@@ -55,6 +61,7 @@ var Queue = React.createClass({
             };
             queueObj.splice(length-1, 1);
             this.handleChange(queueObj);
+            this.setState({showLast: true});
         }
         else {
             alert('no elements to dequeue');
@@ -65,6 +72,7 @@ var Queue = React.createClass({
         if (typeof queueObj[elem.elem] != 'undefined') {
             peek = queueObj[elem.elem];
             this.setState({peek: peek});
+            this.setState({showPeek: true});
         }
         else {
             alert('element does not exist');
@@ -120,14 +128,25 @@ var Queue = React.createClass({
                     Queue: <DisplayQueue getQueue={queueObj}/>
                 </div>
                 <div>
-                    Dequeued: <ButtonInput value={lastObj} />
+                    { this.state.showLast ? <DispElem dispName="Dequeued" dispValue={lastObj} /> : null }
                 </div>
                 <AddElem
                     onButtonClicked={this.peek}
                     buttonValue="Get Element"/>
                 <div>
-                    Peek: <ButtonInput value={peek} />
+                    { this.state.showPeek ? <DispElem dispName="Peek" dispValue={peek} /> : null }
                 </div>
+            </div>
+        );
+    }
+});
+
+var DispElem = React.createClass({
+    render() {
+        return(
+            <div>
+                {this.props.dispName}:
+                <Button>{this.props.dispValue}</Button>
             </div>
         );
     }
