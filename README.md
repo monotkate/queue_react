@@ -1,5 +1,5 @@
-# todo_react
-React 0.14
+# queue_react
+Uses React to run a simple Queue function from scratch, not using the Javascript queue functions.
 
 ## Getting started
 

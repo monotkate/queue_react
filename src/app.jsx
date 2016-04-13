@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, ButtonInput, Input, Form, ButtonToolbar} from "react-bootstrap";
 import styles from './styles';
+import _ from 'lodash';
 
 var App = React.createClass({
 
@@ -207,8 +208,9 @@ var DisplayQueue = React.createClass({
 
     render() {
         var queueList = this.props.getQueue.map(function(elem){
+                        var key = _.uniqueId();
                         return (
-                            <Button bsStyle="primary"> {elem} </Button>
+                            <Button bsStyle="primary" key={key}> {elem} </Button>
                         );
                     });
         return (

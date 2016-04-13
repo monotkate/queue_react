@@ -12,8 +12,6 @@
   },
   "keywords": [
     "react",
-    "es2015",
-    "material-ui",
     "babel"
   ],
   "author": "Miranda Van Minnen",
@@ -25,12 +23,11 @@
   "dependencies": {
     "chalk": "^1.1.1",
     "express": "^4.13.4",
-    "material-ui": "^0.15.0-alpha.1",
     "morgan": "^1.7.0",
     "react": "^0.14.7",
     "react-bootstrap": "^0.28.5",
     "react-dom": "^0.14.7",
-    "react-tap-event-plugin": "^0.2.2"
+    "lodash": "^4.10.0"
   },
   "devDependencies": {
     "babel-core": "^6.6.4",
