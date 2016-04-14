@@ -208,11 +208,12 @@ var DisplayQueue = React.createClass({
 
     render() {
         var queueList = this.props.getQueue.map(function(elem){
-                        var key = _.uniqueId();
-                        return (
-                            <Button bsStyle="primary" key={key}> {elem} </Button>
-                        );
-                    });
+            var key = _.uniqueId();
+            return (
+                <Button bsStyle="primary" key={key}> {elem} </Button>
+            );
+        });
+        
         return (
             <ButtonToolbar style={styles.marginTop10}> {queueList} </ButtonToolbar>
         );
